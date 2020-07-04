@@ -38,7 +38,16 @@ class PertanyaanController extends Controller
         return view('pertanyaan.form', ['today' => $today, 'row' => $pertanyaan]);
     }
 
-    public function update($id) {
-        
+    public function update(Request $request) {
+        $data = request()->except(['_token','id']);
+        $id = $request->input("id");
+        //dd($request->input("id"));
+        $new_question = PertanyaanModel::updateData($id, $data);
+        return redirect('/pertanyaan');
+    }
+
+    public function delete($id) {
+        $delete = PertanyaanModel::delete($id);
+        return redirect('/pertanyaan');
     }
 }
